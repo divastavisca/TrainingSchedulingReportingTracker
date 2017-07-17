@@ -10,6 +10,8 @@ namespace TrainingSchedulingReporting
     {
         static void Main(string[] args)
         {
+            Dictionary<int, Task> registeredTasks = new Dictionary<int, Task>();
+            int latestTaskID = 0;
             while (true)
             {
                 Console.WriteLine("Enter your choice");
@@ -30,8 +32,31 @@ namespace TrainingSchedulingReporting
                                     switch(innerchoice)
                                     {
                                         case 1:
+                                            Console.WriteLine("Enter the task information");
+                                            string tInfo = Console.ReadLine();
+                                            DateTime tDate;
+                                            Console.WriteLine("Enter the schedulled date");
+                                            if (DateTime.TryParse(Console.ReadLine(),out tDate))
+                                            {
+                                                int duration;
+                                                Console.WriteLine("Enter the task duration");
+                                                if (Int32.TryParse(Console.ReadLine(),out duration))
+                                                {
+                                                    Task newTask = new Task(tInfo, tDate, duration);
+                                                    registeredTasks.Add(++latestTaskID, newTask);
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine("Invalid input");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Invalid input");
+                                            }
                                             break;
                                         case 2:
+
                                             break;
                                         case 3:
                                             break;
@@ -63,6 +88,17 @@ namespace TrainingSchedulingReporting
                     Console.WriteLine("Wrong Choice pls enter an integer choice");
                     Console.ReadKey();
                 }
+            }
+        }
+        
+        static void ViewTasks(ref Dictionary<int,Task> taskList)
+        {
+            if (taskList.Count == 0)
+                Console.WriteLine("No Tasks found");
+            else
+            {
+                int key;
+                
             }
         }
     }
