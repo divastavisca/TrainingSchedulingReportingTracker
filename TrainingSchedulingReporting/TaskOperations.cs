@@ -10,30 +10,11 @@ namespace TrainingSchedulingReporting
     {
         public Dictionary<int, Task> registeredTasks = new Dictionary<int, Task>();
         public int latestTaskID = 0;
-        public void registerTask()
+        
+        public void RegisterTask(string taskInfo,DateTime taskDate,int duration)
         {
-            Console.WriteLine("Enter the task information");
-            string taskInfo = Console.ReadLine();
-            DateTime taskDate;
-            Console.WriteLine("Enter the schedulled date");
-            if (DateTime.TryParse(Console.ReadLine(), out taskDate))
-            {
-                int duration;
-                Console.WriteLine("Enter the task duration");
-                if (Int32.TryParse(Console.ReadLine(), out duration))
-                {
-                    Task newTask = new Task(taskInfo, taskDate, duration);
-                    registeredTasks.Add(++latestTaskID, newTask);
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Invalid input");
-            }
+            Task newTask = new Task(taskInfo, taskDate.Date, duration);
+            registeredTasks.Add(++latestTaskID, newTask);
         }
 
         public void viewTasks()
@@ -43,10 +24,11 @@ namespace TrainingSchedulingReporting
             else
             {
                 Console.WriteLine("TaskID\tTask Info\tTask Date\tTask Duration\tTask Status");
+                Console.WriteLine("-------------------------------------------------------------------------------");
                 foreach (KeyValuePair<int, Task> pair in registeredTasks)
                 {
                     Task pointedTask = pair.Value;
-                    Console.WriteLine(pair.Key + "\t" + pointedTask.taskInfo + "\t" + pointedTask.taskDate + "\t" + pointedTask.taskDuration + "\t" + pointedTask.status);
+                    Console.WriteLine(pair.Key + "\t" + pointedTask.taskInfo + "\t" + pointedTask.taskDate.Date + "\t" + pointedTask.taskDuration + "\t" + pointedTask.status);
                 }
 
             }

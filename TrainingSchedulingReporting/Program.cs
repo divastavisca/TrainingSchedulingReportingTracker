@@ -11,11 +11,12 @@ namespace TrainingSchedulingReporting
         static void Main(string[] args)
         {
             TaskOperations tOperations = new TaskOperations(); //Supports different task operations
+
             {
                 while (true)
                 {
                     Console.WriteLine("Enter your choice");
-                    Console.WriteLine("(1)Tasks\n(2)Schedulling\n(3)Reporting\n(4)Exit");
+                    Console.WriteLine("(1)Task Handling operations\n(2)Schedulling\n(3)Reporting\n(4)Exit");
                     int choice, innerchoice;
                     bool brk;
                     if (Int32.TryParse(Console.ReadLine(), out choice))
@@ -33,7 +34,27 @@ namespace TrainingSchedulingReporting
                                             switch (innerchoice)
                                             {
                                                 case 1:
-                                                    tOperations.registerTask();
+                                                    Console.WriteLine("Enter the task information");
+                                                    string taskInfo = Console.ReadLine();
+                                                    DateTime taskDate;
+                                                    Console.WriteLine("Enter the schedulled date");
+                                                    if (DateTime.TryParse(Console.ReadLine(), out taskDate))
+                                                    {
+                                                        int duration;
+                                                        Console.WriteLine("Enter the task duration");
+                                                        if (Int32.TryParse(Console.ReadLine(), out duration))
+                                                        {
+                                                            tOperations.RegisterTask(taskInfo, taskDate.Date, duration);
+                                                        }
+                                                        else
+                                                        {
+                                                            Console.WriteLine("Invalid input");
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        Console.WriteLine("Invalid input");
+                                                    }
                                                     break;
                                                 case 2:
                                                     tOperations.viewTasks();
