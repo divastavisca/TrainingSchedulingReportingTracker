@@ -8,42 +8,42 @@ namespace TrainingSchedulingReporting
 {
     public class TaskOperations
     {
-        public Dictionary<int, Task> registeredTasks = new Dictionary<int, Task>();
-        public int latestTaskID = 0;
+        public Dictionary<int, Task> RegisteredTasks = new Dictionary<int, Task>();
+        public int LatestTaskID = 0;
         
-        public void RegisterTask(string taskInfo,DateTime taskDate,int duration)
+        public void RegisterTask(string TaskInfo,DateTime TaskDate,int Duration)
         {
-            Task newTask = new Task(taskInfo, taskDate.Date, duration);
-            registeredTasks.Add(++latestTaskID, newTask);
+            Task NewTask = new Task(TaskInfo, TaskDate.Date, Duration);
+            RegisteredTasks.Add(++LatestTaskID, NewTask);
         }
 
-        public void viewTasks()
+        public void ViewTasks()
         {
-            if (registeredTasks.Count == 0)
+            if (RegisteredTasks.Count == 0)
                 Console.WriteLine("No Tasks found");
             else
             {
                 Console.WriteLine("TaskID\tTask Info\tTask Date\tTask Duration\tTask Status");
                 Console.WriteLine("-------------------------------------------------------------------------------");
-                foreach (KeyValuePair<int, Task> pair in registeredTasks)
+                foreach (KeyValuePair<int, Task> Pair in RegisteredTasks)
                 {
-                    Task pointedTask = pair.Value;
-                    Console.WriteLine(pair.Key + "\t" + pointedTask.taskInfo + "\t" + pointedTask.taskDate.Date + "\t" + pointedTask.taskDuration + "\t" + pointedTask.status);
+                    Task PointedTask = Pair.Value;
+                    Console.WriteLine(Pair.Key + "\t" + PointedTask.TaskInfo + "\t" + PointedTask.TaskDate.Date + "\t" + PointedTask.TaskDuration + "\t" + PointedTask.Status);
                 }
 
             }
         }
 
 
-        public void modifyTask()
+        public void ModifyTask()
         {
             int taskID;
-            viewTasks();
+            ViewTasks();
             Console.WriteLine("Enter the task ID for the task you want to modify");
             if(Int32.TryParse(Console.ReadLine(),out taskID))
             {
-                Task taskToBeModified;
-                if (registeredTasks.TryGetValue(taskID, out taskToBeModified))
+                Task TaskToBeModified;
+                if (RegisteredTasks.TryGetValue(taskID, out TaskToBeModified))
                 {
                     int choice;
                     bool brk = true;
@@ -56,7 +56,7 @@ namespace TrainingSchedulingReporting
                             {
                                 case 1:
                                     Console.WriteLine("Enter new info");
-                                    taskToBeModified.taskInfo = Console.ReadLine();
+                                    TaskToBeModified.TaskInfo = Console.ReadLine();
                                     brk = false;
                                     break;
                                 case 2:
@@ -64,7 +64,7 @@ namespace TrainingSchedulingReporting
                                     DateTime newDate;
                                     if(DateTime.TryParse(Console.ReadLine(),out newDate))
                                     {
-                                        taskToBeModified.taskDate = newDate;
+                                        TaskToBeModified.TaskDate = newDate;
                                         brk = false;
                                     }
                                     break;
@@ -73,7 +73,7 @@ namespace TrainingSchedulingReporting
                                     int newDuration;
                                     if(Int32.TryParse(Console.ReadLine(),out newDuration))
                                     {
-                                        taskToBeModified.taskDuration = newDuration;
+                                        TaskToBeModified.TaskDuration = newDuration;
                                         brk = false;
                                     }
                                     break;
@@ -82,13 +82,13 @@ namespace TrainingSchedulingReporting
                                     int newStatusCode;
                                     if (Int32.TryParse(Console.ReadLine(), out newStatusCode))
                                     {
-                                        taskToBeModified.statusCode = newStatusCode;
+                                        TaskToBeModified.StatusCode = newStatusCode;
                                         brk = false;
                                     }
                                     break;
                                 case 5:
                                     Console.Write("Enter the name of new trainer");
-                                    taskToBeModified.trainer.name = Console.ReadLine();
+                                    TaskToBeModified.TrainerAssigned.Name = Console.ReadLine();
                                     brk = false;
                                     break;
                                 case 6:
@@ -99,8 +99,8 @@ namespace TrainingSchedulingReporting
                             }
                         }
                     }
-                    registeredTasks.Remove(taskID);
-                    registeredTasks.Add(taskID, taskToBeModified);
+                    RegisteredTasks.Remove(taskID);
+                    RegisteredTasks.Add(taskID, TaskToBeModified);
                 }
                 else Console.WriteLine("Entered Task ID does not exist");
             }
